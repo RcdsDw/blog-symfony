@@ -8,12 +8,29 @@ use App\Entity\User;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
+use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 
 class AppFixtures extends Fixture
 {
+
+    private UserPasswordHasherInterface $passwordHasher;
+
+    public function __construct(UserPasswordHasherInterface $passwordHasher) {
+        $this->passwordHasher = $passwordHasher;
+    }
     public function load(ObjectManager $manager): void
     {
         $users = [];
+
+        $admin = new User();
+            $admin->setUsername("admin");
+            $admin->setEmail("admin@admin.com");
+            $admin->setPassword($this->passwordHasher->hashPassword($admin, "admin"));
+            $admin->setImg(null);
+            $admin->setCreatedAt(new \DateTimeImmutable());
+            $admin->setRoles(["ROLE_ADMIN"]);
+
+            $manager->persist($admin);
 
         for ($i = 0; $i < 60; $i++) {
             $faker = Factory::create();
@@ -21,7 +38,7 @@ class AppFixtures extends Fixture
             $user = new User();
             $user->setUsername($faker->userName());
             $user->setEmail($faker->email());
-            $user->setPassword($faker->password());
+            $user->setPassword($this->passwordHasher->hashPassword($user, $faker->password()));
             $user->setImg($faker->imageUrl());
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setRoles(["ROLE_USER"]);

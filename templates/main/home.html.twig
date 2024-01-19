@@ -29,8 +29,9 @@
 <div class="main">
     <div class="cards">
         {% for post in posts %}
-            <div class="card">
-                <img class="image" src="{{post.img}}"/>
+            {# <form action="{{ path('app_post_details', {'post_id': post.id})}}"> #}
+            <a class="card" href='{{ path('app_post_details', {'post_id': post.id})}}'>
+                <img class="image" src='{{post.img}}'/>
                 <div class="content">
                     <h1 class="title">
                         {{post.title}}
@@ -41,17 +42,17 @@
                     </p>
 
                     <div class="actions">
-                        <a class="comment" href="#">
-                            <img class="img_comment" src="{{ asset('/img/tablets.png') }}" alt="">
-                        </a>
+                        <div class="comment">
+                            <img class="img_comment" src='{{ asset('/img/tablets.png') }}' alt=""/>
+                        </div>
                         <div class="like">
-                            <img class="img_like" onclick=handleClick(this) src="{{ asset('/img/heart.png') }}" alt="">
+                            <img class="img_like" onclick=handleClick(this) src='{{ asset('/img/heart.png') }}' alt=""/>
                             <p class="nbr_likes">{{post.likes}}</p>
                         </div>
                     </div>
-
                 </div>
-            </div>
+            </a>
+            {# </form> #}
         {% endfor %}
     </div>
 </div>
