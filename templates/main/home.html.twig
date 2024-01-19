@@ -1,0 +1,58 @@
+{% extends 'base.html.twig' %}
+
+    {% block javascripts %}
+    {% block importmap %}{{ importmap('app') }}{% endblock %}
+        <script>
+            function handleClick(element) {
+                element.style.transition = "width 0.1s, height 0.1s";
+                element.style.width = "0";
+                element.style.height = "0";
+        
+                setTimeout(function () {
+                    if (element.classList.contains('liked')) {
+                        element.src = "{{ asset('/img/heart.png') }}";
+                        element.classList.remove('liked')
+                    } else {
+                        element.src = "{{ asset('/img/heart_full.png') }}";
+                        element.classList.add('liked')
+                    }
+                    element.style.width = "40px";
+                    element.style.height = "40px";
+                }, 100);
+            }
+        </script>
+    {% endblock %}
+
+{% block title %}Olympus Blogus{% endblock %}
+
+{% block body %}
+<div class="main">
+    <div class="cards">
+        {% for post in posts %}
+            <div class="card">
+                <img class="image" src="{{post.img}}"/>
+                <div class="content">
+                    <h1 class="title">
+                        {{post.title}}
+                    </h1>
+
+                    <p class="desc">
+                        {{post.text}}
+                    </p>
+
+                    <div class="actions">
+                        <a class="comment" href="#">
+                            <img class="img_comment" src="{{ asset('/img/tablets.png') }}" alt="">
+                        </a>
+                        <div class="like">
+                            <img class="img_like" onclick=handleClick(this) src="{{ asset('/img/heart.png') }}" alt="">
+                            <p class="nbr_likes">{{post.likes}}</p>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

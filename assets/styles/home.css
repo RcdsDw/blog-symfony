@@ -1,0 +1,86 @@
+.cards {
+  display: flex;
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+.card {
+    position: relative;
+    width: 700px;
+    margin: 4rem;
+    border-radius: 1rem;
+    background-color: var(--sand-color);
+    box-shadow: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+    border: 1px solid transparent;
+  }
+  
+  .card a {
+    color: var(--black-color);
+    text-decoration: none
+  }
+  
+  .content {
+    padding: 1rem;
+  }
+  
+  .image {
+    object-fit: cover;
+    width: 100%;
+    height: 250px;
+    border-radius: 1rem 1rem 0rem 0rem;
+    background-color: rgb(239, 205, 255);
+  }
+  
+  .title {
+    color: var(--black-color);
+    border-bottom: 1px solid var(--black-color);
+    font-size: 4rem;
+    text-wrap: balance;
+    font-weight: 600;
+  }
+  
+  .desc {
+    margin-top: 0.5rem;
+    padding: 1rem;
+    border-radius: 1rem;
+    background-color: var(--orange-color);
+    color: var(--black-color);
+    font-size: 2rem;
+    text-wrap: pretty;
+    line-height: 1.5rem;
+  }
+  
+  .like {
+    position: absolute;
+    bottom: 20px;
+    right: 30%;
+  }
+
+  .nbr_likes {
+    position: absolute;
+    bottom: 0px;
+    left: 100%;
+  }
+
+  .comment {
+    position: absolute;
+    bottom: 20px;
+    left: 30%;
+  }
+
+  .img_comment, .img_like {
+    display: inline-flex;
+    margin-top: 1rem;
+    color: #ffffff;
+    align-items: center;
+    padding: 4px 8px;
+    width: 40px;
+    height: 40px;
+  }
+
+  .actions {
+    display: flex;
+    align-items: center;
+    height: 50px;
+  }
+  
