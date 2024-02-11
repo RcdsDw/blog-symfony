@@ -3,21 +3,21 @@
     {% block javascripts %}
     {% block importmap %}{{ importmap('app') }}{% endblock %}
         <script>
-            function handleClick(element) {
-                element.style.transition = "width 0.1s, height 0.1s";
-                element.style.width = "0";
-                element.style.height = "0";
+            function handleClick(e) {
+                e.style.transition = "width 0.1s, height 0.1s";
+                e.style.width = "0";
+                e.style.height = "0";
         
                 setTimeout(function () {
-                    if (element.classList.contains('liked')) {
-                        element.src = "{{ asset('/img/heart.png') }}";
-                        element.classList.remove('liked')
+                    if (e.classList.contains('liked')) {
+                        e.src = "{{ asset('/img/heart.png') }}";
+                        e.classList.remove('liked')
                     } else {
-                        element.src = "{{ asset('/img/heart_full.png') }}";
-                        element.classList.add('liked')
+                        e.src = "{{ asset('/img/heart_full.png') }}";
+                        e.classList.add('liked')
                     }
-                    element.style.width = "40px";
-                    element.style.height = "40px";
+                    e.style.width = "40px";
+                    e.style.height = "40px";
                 }, 100);
             }
         </script>
@@ -29,7 +29,6 @@
 <div class="main">
     <div class="cards">
         {% for post in posts %}
-            {# <form action="{{ path('app_post_details', {'post_id': post.id})}}"> #}
             <a class="card" href='{{ path('app_post_details', {'post_id': post.id})}}'>
                 <img class="image" src='{{post.img}}'/>
                 <div class="content">
@@ -52,7 +51,6 @@
                     </div>
                 </div>
             </a>
-            {# </form> #}
         {% endfor %}
     </div>
 </div>

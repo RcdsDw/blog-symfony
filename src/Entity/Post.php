@@ -7,6 +7,7 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -25,11 +26,13 @@ class Post
     #[ORM\Column(length: 512, nullable: true)]
     private ?string $img = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: "create")]
+    private $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
+    #[Gedmo\Timestampable(on: "update")]
+    private $updatedAt = null;
 
     #[ORM\Column]
     private ?int $likes = null;
@@ -37,7 +40,7 @@ class Post
     #[ORM\Column(length: 255)]
     private ?string $categorie = null;
 
-    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class)]
+    #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, cascade: ['persist', 'remove'])]
     private Collection $comments;
 
     public function __construct()

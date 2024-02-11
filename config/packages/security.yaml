@@ -34,6 +34,7 @@ security:
         - { path: ^/register, roles: PUBLIC_ACCESS }
         - { path: ^/login, roles: PUBLIC_ACCESS }
         - { path: ^/admin, roles: ROLE_ADMIN }
+        - { path: ^/post, roles: ROLE_ADMIN }
         - { path: ^/, role: ROLE_USER }
         # - { path: ^/profile, roles: ROLE_USER }
 
