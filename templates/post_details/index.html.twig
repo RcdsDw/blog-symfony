@@ -25,29 +25,37 @@
 {% endblock %}
 
 {% block body %}
-    <div class="main">
-        <div class="card">
-            <img class="image" src="{{post.img}}"/>
-            <div class="content">
-                <h1 class="title">
+    <div class="main_details">
+        <div class="card_details">
+            <img class="image_details" src="{{post.img}}"/>
+            <div class="content_details">
+                <h1 class="title_details">
                     {{post.title}}
                 </h1>
 
-                <p class="desc">
+                <p class="desc_details">
                     {{post.text}}
                 </p>
 
-                <div class="actions">
-                    <a class="comment" href="#">
-                        <img class="img_comment" src="{{ asset('/img/tablets.png') }}" alt="">
+                <div class="actions_details">
+                    <a class="comment_details" href="#">
+                        <img class="img_comment_details" src="{{ asset('/img/tablets.png') }}" alt="">
                     </a>
-                    <div class="like">
-                        <img class="img_like" onclick=handleClick(this) src="{{ asset('/img/heart.png') }}" alt="">
-                        <p class="nbr_likes">{{post.likes}}</p>
+                    <div class="like_details">
+                        <img class="img_like_details" onclick=handleClick(this) src="{{ asset('/img/heart.png') }}" alt="">
+                        <p class="nbr_likes_details">{{post.likes}}</p>
                     </div>
                 </div>
-
             </div>
+        </div>
+        <div class="comments_wrapper">
+            {% for comment in post.comments %}
+                <div class="comment_card">
+                    <div class="text_comment">{{ comment.text }}</div>
+                    <div class="date_comment">{{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i:s') : '' }}</div>
+                    <div class="author_comment">{{ comment.user.getUsername() }}</div>
+                </div>
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

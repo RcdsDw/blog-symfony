@@ -1,14 +1,39 @@
 <header>
-    <img class="img_header" src="{{ asset('/img/zeus.svg') }}" alt="logo du blog">
-    <div class="title_header">Olympus Blogus</div>
-    <div class="menu">
-        <img class="menu_img" src="{{ asset('/img/burger.svg') }}" alt="burger menu icon">
+    {% block javascripts %}
+        <script>
+            function menuOnClick() {
+                document.getElementById("menu-bar").classList.toggle("change");
+                document.getElementById("nav").classList.toggle("change");
+                document.getElementById("menu-bg").classList.toggle("change-bg");
+              }
+        </script>
+    {% endblock %}
+
+    {% if is_granted('ROLE_ADMIN') %}
+    <div class="menu_admin">
+        <a href="{{path('app_home')}}"><img class="img_header" src="{{ asset('/img/zeus.svg') }}" alt="logo du blog"></a>
+        <a href="{{path('app_post_index')}}"><img class="img_header_admin" src="{{ asset('/img/admin.svg') }}" alt="logo du blog"></a>
     </div>
-    {# <nav>
-        <ul>
-            <li>
-                <a href="{{path('app_main')}}">Home</a>
-            </li>
-        </ul>
-    </nav> #}
+    {% else %}
+        <a href="{{path('app_home')}}"><img class="img_header" src="{{ asset('/img/zeus.svg') }}" alt="logo du blog"></a>
+    {% endif %}
+    <div class="title_wrapper">
+        <img class="menu_img" src="{{ asset('/img/column.svg') }}" alt="column icon">
+        <div class="title_header">Olympus Blogus</div>
+        <img class="menu_img" src="{{ asset('/img/column.svg') }}" alt="column icon">
+    </div>
+    <div id="menu">
+        <div id="menu-bar" onclick="menuOnClick()">
+            <div id="bar1" class="bar"></div>
+            <div id="bar2" class="bar"></div>
+            <div id="bar3" class="bar"></div>
+        </div>
+        <nav class="nav" id="nav">
+            <ul>
+            <li><a href="{{path('app_logout')}}">Se déconnecter !</a></li>
+            </ul>
+        </nav> 
+    </div>
+
+    <div class="menu-bg" id="menu-bg"></div>
 </header>

@@ -1,0 +1,50 @@
+.table {
+    padding: 5rem;
+    margin: 0 auto;
+}
+
+.title_admin {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+}
+
+.buttons_admin_wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.button_admin, .button_crud {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 5px auto;
+    min-width: 110px;
+    width: fit-content;
+    height: auto;
+    font-size: larger;
+    border: 1px solid var(--blue-color);
+    border-radius: 5px;
+    background-color: var(--sand-color);
+    transition: all 0.1s ease-in;
+}
+
+.button_crud {
+    margin: 5px auto;
+    padding: 0 15px;
+    min-width: 200px;
+    width: fit-content;
+    height: 50px;
+    font-size: 2.5rem;
+}
+
+.button_admin:hover, .button_crud:hover {
+    background-color: var(--blue-color);
+    color: white;
+}
+
+tbody>tr>td, tbody>tr>th, thead>tr>th {
+    font-size: 2rem;
+}

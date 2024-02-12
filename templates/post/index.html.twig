@@ -1,22 +1,23 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Post index{% endblock %}
+{% block title %} {% endblock %}
 
 {% block body %}
-    <h1>Post index</h1>
+    <h1 class="title_admin">Liste des post !</h1>
+    <a class="button_crud" href="{{ path('app_post_new') }}">Create new</a>
 
     <table class="table">
         <thead>
             <tr>
                 <th>Id</th>
-                <th>Title</th>
-                <th>Text</th>
-                <th>Img</th>
-                <th>CreatedAt</th>
-                <th>UpdatedAt</th>
+                <th>Titre</th>
+                <th>Texte</th>
+                <th>Image</th>
+                <th>Crée le</th>
+                <th>Mis à jour le</th>
                 <th>Likes</th>
-                <th>Categorie</th>
-                <th>actions</th>
+                <th>Catégorie</th>
+                <th>Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -26,22 +27,20 @@
                 <td>{{ post.title }}</td>
                 <td>{{ post.text }}</td>
                 <td>{{ post.img }}</td>
-                <td>{{ post.createdAt ? post.createdAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ post.updatedAt ? post.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td>{{ post.createdAt ? post.createdAt|date('d-m-Y H:i:s') : '' }}</td>
+                <td>{{ post.updatedAt ? post.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
                 <td>{{ post.likes }}</td>
                 <td>{{ post.categorie }}</td>
-                <td>
-                    <a href="{{ path('app_post_show', {'id': post.id}) }}">show</a>
-                    <a href="{{ path('app_post_edit', {'id': post.id}) }}">edit</a>
+                <td class="buttons_admin_wrapper">
+                    <a class="button_admin" href="{{ path('app_post_show', {'id': post.id}) }}">Détails</a>
+                    <a class="button_admin" href="{{ path('app_post_edit', {'id': post.id}) }}">Editer</a>
                 </td>
             </tr>
         {% else %}
             <tr>
-                <td colspan="9">no records found</td>
+                <td colspan="9">Pas de données</td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
-
-    <a href="{{ path('app_post_new') }}">Create new</a>
 {% endblock %}

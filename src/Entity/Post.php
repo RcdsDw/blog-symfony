@@ -7,7 +7,6 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use Gedmo\Mapping\Annotation as Gedmo;
 
 #[ORM\Entity(repositoryClass: PostRepository::class)]
 class Post
@@ -26,12 +25,10 @@ class Post
     #[ORM\Column(length: 512, nullable: true)]
     private ?string $img = null;
 
-    #[ORM\Column(type: Types::DATETIME_MUTABLE)]
-    #[Gedmo\Timestampable(on: "create")]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private $createdAt = null;
 
-    #[ORM\Column(nullable: true, type: Types::DATETIME_MUTABLE)]
-    #[Gedmo\Timestampable(on: "update")]
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private $updatedAt = null;
 
     #[ORM\Column]
@@ -46,6 +43,12 @@ class Post
     public function __construct()
     {
         $this->comments = new ArrayCollection();
+
+        $this->createdAt = new \DateTimeImmutable();
+
+        $this->updatedAt = new \DateTimeImmutable();
+
+        $this->likes = 0;
     }
 
     public function getId(): ?int
@@ -96,8 +99,6 @@ class Post
 
     public function setCreatedAt(\DateTimeImmutable $createdAt): static
     {
-        $this->createdAt = $createdAt;
-
         return $this;
     }
 
@@ -108,8 +109,6 @@ class Post
 
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
-        $this->updatedAt = $updatedAt;
-
         return $this;
     }
 
