@@ -1,0 +1,47 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Profil{% endblock %}
+{% block javascripts %}
+    {{ parent() }}
+    <script>
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#imagePreview').css('background-image', 'url('+e.target.result +')');
+                    $('#imagePreview').hide();
+                    $('#imagePreview').fadeIn(650);
+                }
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+        $(document).ready(function () {
+            $("#imageUpload").change(function() {
+                console.log('oui')
+                readURL(this);
+            });
+        })
+    </script>
+{% endblock %}
+
+{% block body %}
+<div class="profil_wrapper">
+    <h1 class="hello_user">Bonjour {{ user.username }} !</h1>
+
+    <div class="container_avatar">
+        <h1 class="title_avatar">Avatar</h1>
+        <div class="avatar-upload">
+            <div class="avatar-edit">
+                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                <label for="imageUpload"></label>
+            </div>
+            <div class="avatar-preview">
+                <div id="imagePreview" style="background-image: url({{user.img}});">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <a class="button_crud _profil" href="{{path('app_post_index')}}">Voir l'interface admin !</a>
+</div>
+{% endblock %}

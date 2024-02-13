@@ -17,11 +17,11 @@ class Comment
     #[ORM\Column(type: Types::TEXT)]
     private ?string $text = null;
 
-    #[ORM\Column]
-    private ?\DateTimeImmutable $createdAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private $createdAt = null;
 
-    #[ORM\Column(nullable: true)]
-    private ?\DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
+    private $updatedAt = null;
 
     #[ORM\Column]
     private ?int $likes = null;
@@ -33,6 +33,15 @@ class Comment
     #[ORM\ManyToOne(inversedBy: 'comments', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     private ?User $user = null;
+
+    public function __construct()
+    {
+        $this->createdAt = new \DateTimeImmutable();
+
+        $this->updatedAt = new \DateTimeImmutable();
+
+        $this->likes = 0;
+    }
 
     public function getId(): ?int
     {

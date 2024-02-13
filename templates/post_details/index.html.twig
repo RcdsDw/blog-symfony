@@ -1,6 +1,6 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Hello PostDetailsController!{% endblock %}
+{% block title %}Details{% endblock %}
 {% block javascripts %}
 {% block importmap %}{{ importmap('app') }}{% endblock %}
     <script>
@@ -38,9 +38,6 @@
                 </p>
 
                 <div class="actions_details">
-                    <a class="comment_details" href="#">
-                        <img class="img_comment_details" src="{{ asset('/img/tablets.png') }}" alt="">
-                    </a>
                     <div class="like_details">
                         <img class="img_like_details" onclick=handleClick(this) src="{{ asset('/img/heart.png') }}" alt="">
                         <p class="nbr_likes_details">{{post.likes}}</p>
@@ -48,8 +45,12 @@
                 </div>
             </div>
         </div>
+        <form class="create_comment_wrapper" method="post" action="{{ path('app_post_new_comment', {'id': post.id}) }}">
+            <input name="comment" class="create_comment_input" type="text" placeholder="J'écris un commentaire !">
+            <button class="button_crud _user">J'envoie !</button>
+        </form>
         <div class="comments_wrapper">
-            {% for comment in post.comments %}
+            {% for comment in comments %}
                 <div class="comment_card">
                     <div class="text_comment">{{ comment.text }}</div>
                     <div class="date_comment">{{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i:s') : '' }}</div>

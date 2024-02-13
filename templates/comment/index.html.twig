@@ -1,0 +1,43 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Comment index{% endblock %}
+
+{% block body %}
+    <h1 class="title_admin">Liste des commentaire !</h1>
+    <a class="button_crud" href="{{ path('app_comment_new') }}">Créer un commentaire !</a>
+    <a class="onglet_on" href="">Les commentaires</a>
+    <a class="onglet" href="{{ path('app_post_index') }}">Les posts</a>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Texte</th>
+                <th>Crée le</th>
+                <th>Mis à jour le</th>
+                <th>Likes</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for comment in comments %}
+            <tr>
+                <td class="td_index">{{ comment.id }}</td>
+                <td class="td_text td_index">{{ comment.text }}</td>
+                <td class="td_index">{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="td_index">{{ comment.updatedAt ? comment.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
+                <td class="td_index">{{ comment.likes }}</td>
+                <td class="td_index">
+                    <a class="button_admin" href="{{ path('app_comment_show', {'id': comment.id}) }}">Détails</a>
+                    <a class="button_admin" href="{{ path('app_comment_edit', {'id': comment.id}) }}">Editer</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="6">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
