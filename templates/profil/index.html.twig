@@ -17,7 +17,6 @@
         }
         $(document).ready(function () {
             $("#imageUpload").change(function() {
-                console.log('oui')
                 readURL(this);
             });
         })
@@ -31,17 +30,28 @@
     <div class="container_avatar">
         <h1 class="title_avatar">Avatar</h1>
         <div class="avatar-upload">
-            <div class="avatar-edit">
-                <input type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
-                <label for="imageUpload"></label>
-            </div>
-            <div class="avatar-preview">
-                <div id="imagePreview" style="background-image: url({{user.img}});">
+            {{ form_start(profilForm) }}
+                <div class="avatar-edit">
+                    {# <div>
+                        <img src="{{ vich_uploader_asset(user, 'imageFile') }}">
+                    </div> #}
+                    {{ form_row(profilForm.imageFile) }}
+                    {{ form_row(profilForm.username) }}
+                    {# <input name="newImg" type='file' id="imageUpload" accept=".png, .jpg, .jpeg" />
+                    <label class="label_imageUpload" "imageUpload"></label> #}
                 </div>
-            </div>
+                <div class="avatar-preview">
+                    <img src="{{ asset('img/users/' ~ user.imageName) }}" alt="">
+                    <div id="imagePreview" style="background-image: url({{ asset('img/users/' ~ user.imageName) }});">
+                    </div>
+                </div>
+                <button class="button_crud">{{ button_label|default('Enregistrer') }}</button>
+            {{ form_end(profilForm) }}
         </div>
     </div>
 
-    <a class="button_crud _profil" href="{{path('app_post_index')}}">Voir l'interface admin !</a>
+    {% if is_granted('ROLE_ADMIN') %}
+        <a class="button_crud" href="{{path('app_post_index')}}">Voir l'interface admin !</a>
+    {% endif %}
 </div>
 {% endblock %}

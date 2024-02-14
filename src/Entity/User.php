@@ -9,7 +9,11 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\HttpFoundation\File\File;
+use Symfony\Component\Serializer\Annotation\Ignore;
+use Vich\UploaderBundle\Mapping\Annotation as Vich;
 
+# 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
 #[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
@@ -35,7 +39,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     private ?string $username = null;
 
     #[ORM\Column(length: 512, nullable: true)]
-    private ?string $img = null;
+    private ?string $imageName = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $createdAt = null;
@@ -136,16 +140,14 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getImg(): ?string
+    public function setImageName(?string $imageName): void
     {
-        return $this->img;
+        $this->imageName = $imageName;
     }
 
-    public function setImg(?string $img): static
+    public function getImageName(): ?string
     {
-        $this->img = $img;
-
-        return $this;
+        return $this->imageName;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable

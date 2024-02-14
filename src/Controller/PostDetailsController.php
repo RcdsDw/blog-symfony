@@ -4,8 +4,6 @@ namespace App\Controller;
 
 use App\Entity\Comment;
 use App\Entity\Post;
-use App\Form\CommentType;
-use App\Repository\PostRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
