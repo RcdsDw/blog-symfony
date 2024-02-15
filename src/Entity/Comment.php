@@ -23,9 +23,6 @@ class Comment
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private $updatedAt = null;
 
-    #[ORM\Column]
-    private ?int $likes = null;
-
     #[ORM\ManyToOne(inversedBy: 'comments', fetch: 'EAGER')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $post = null;
@@ -39,8 +36,6 @@ class Comment
         $this->createdAt = new \DateTimeImmutable();
 
         $this->updatedAt = new \DateTimeImmutable();
-
-        $this->likes = 0;
     }
 
     public function getId(): ?int
@@ -80,18 +75,6 @@ class Comment
     public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
-
-        return $this;
-    }
-
-    public function getLikes(): ?int
-    {
-        return $this->likes;
-    }
-
-    public function setLikes(int $likes): static
-    {
-        $this->likes = $likes;
 
         return $this;
     }

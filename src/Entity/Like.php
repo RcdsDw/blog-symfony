@@ -15,7 +15,7 @@ class Like
     private ?User $User = null;
 
     #[ORM\Id]
-    #[ORM\ManyToOne(inversedBy: 'newLikes')]
+    #[ORM\ManyToOne(inversedBy: 'likes')]
     #[ORM\JoinColumn(nullable: false)]
     private ?Post $Post = null;
 

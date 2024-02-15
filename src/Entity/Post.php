@@ -176,7 +176,12 @@ class Post
         return $this->likes;
     }
 
-    public function addNewLike(Like $like): static
+    public function getTotalLikes(): int
+    {
+        return count($this->likes);
+    }
+
+    public function addLike(Like $like): static
     {
         if (!$this->likes->contains($like)) {
             $this->likes->add($like);
@@ -186,7 +191,7 @@ class Post
         return $this;
     }
 
-    public function removeNewLike(Like $like): static
+    public function removeLike(Like $like): static
     {
         if ($this->likes->removeElement($like)) {
             // set the owning side to null (unless already changed)

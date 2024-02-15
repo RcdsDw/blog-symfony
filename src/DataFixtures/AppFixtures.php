@@ -58,7 +58,6 @@ class AppFixtures extends Fixture
             $post->setText($faker->paragraph());
             $post->setImageName("https://picsum.photos/1900/2000?grayscale&image=$i");
             $post->setCategorie($faker->word());
-            $post->setLikes(rand(1,1000));
             $post->setCreatedAt(new \DateTimeImmutable());
             $post->setUser($admin);
 
@@ -67,7 +66,6 @@ class AppFixtures extends Fixture
                 $comment = new Comment();
                 $comment->setText($faker->paragraph());
                 $comment->setCreatedAt(new \DateTimeImmutable());
-                $comment->setLikes(rand(1, 100));
                 $comment->setPost($post);
                 $comment->setUser($users[rand(0, count($users) -1)]);
 
