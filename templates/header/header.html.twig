@@ -11,11 +11,11 @@
 
     {% if is_granted('ROLE_ADMIN') %}
     <div class="menu_admin">
-        <a href="{{path('app_home')}}"><img class="img_header" src="{{ asset('/img/zeus.svg') }}" alt="logo du blog"></a>
-        <a href="{{path('app_post_index')}}"><img class="img_header_admin" src="{{ asset('/img/admin.svg') }}" alt="logo du blog"></a>
+        <a href="{{path('app_home')}}" title="Accueil"><img class="img_header" src="{{ asset('/img/zeus.svg') }}" alt="logo du blog"></a>
+        <a href="{{path('app_post_index')}}" title="Interface admin"><img class="img_header_admin" src="{{ asset('/img/admin.svg') }}" alt="logo du blog"></a>
     </div>
     {% else %}
-        <a href="{{path('app_home')}}"><img class="img_header" src="{{ asset('/img/zeus.svg') }}" alt="logo du blog"></a>
+        <a href="{{path('app_home')}}" title="Accueil"><img class="img_header" src="{{ asset('/img/zeus.svg') }}" alt="logo du blog" ></a>
     {% endif %}
     <div class="title_wrapper">
         <img class="menu_img" src="{{ asset('/img/column.svg') }}" alt="column icon">
@@ -23,7 +23,7 @@
         <img class="menu_img" src="{{ asset('/img/column.svg') }}" alt="column icon">
     </div>
     <div id="menu">
-        <div id="menu-bar" onclick="menuOnClick()">
+        <div id="menu-bar" onclick="menuOnClick()" title="Menu">
             <div id="bar1" class="bar"></div>
             <div id="bar2" class="bar"></div>
             <div id="bar3" class="bar"></div>

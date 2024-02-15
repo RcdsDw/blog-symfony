@@ -27,7 +27,7 @@
 {% block body %}
     <div class="main_details">
         <div class="card_details">
-            <img class="image_details" src="{{post.img}}"/>
+            <img class="image_details" src="{{ asset('img/posts/' ~ post.imageName) }}" alt="image d'illustration du post"/>
             <div class="content_details">
                 <h1 class="title_details">
                     {{post.title}}

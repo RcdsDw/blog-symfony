@@ -23,7 +23,7 @@ class Post
     private ?string $text = null;
 
     #[ORM\Column(length: 512, nullable: true)]
-    private ?string $img = null;
+    private ?string $imageName = null;
 
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private $createdAt = null;
@@ -31,14 +31,18 @@ class Post
     #[ORM\Column(type: Types::DATETIME_IMMUTABLE)]
     private $updatedAt = null;
 
-    #[ORM\Column]
-    private ?int $likes = null;
-
     #[ORM\Column(length: 255)]
     private ?string $categorie = null;
 
     #[ORM\OneToMany(mappedBy: 'post', targetEntity: Comment::class, cascade: ['persist', 'remove'])]
     private Collection $comments;
+
+    #[ORM\ManyToOne(inversedBy: 'posts', fetch: 'EAGER')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?User $user = null;
+
+    #[ORM\OneToMany(mappedBy: 'Post', targetEntity: Like::class, orphanRemoval: true)]
+    private Collection $likes;
 
     public function __construct()
     {
@@ -48,7 +52,7 @@ class Post
 
         $this->updatedAt = new \DateTimeImmutable();
 
-        $this->likes = 0;
+        $this->likes = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -80,16 +84,14 @@ class Post
         return $this;
     }
 
-    public function getImg(): ?string
+    public function setImageName(?string $imageName): void
     {
-        return $this->img;
+        $this->imageName = $imageName;
     }
 
-    public function setImg(?string $img): static
+    public function getImageName(): ?string
     {
-        $this->img = $img;
-
-        return $this;
+        return $this->imageName;
     }
 
     public function getCreatedAt(): ?\DateTimeImmutable
@@ -109,18 +111,6 @@ class Post
 
     public function setUpdatedAt(?\DateTimeImmutable $updatedAt): static
     {
-        return $this;
-    }
-
-    public function getLikes(): ?int
-    {
-        return $this->likes;
-    }
-
-    public function setLikes(int $likes): static
-    {
-        $this->likes = $likes;
-
         return $this;
     }
 
@@ -160,6 +150,48 @@ class Post
             // set the owning side to null (unless already changed)
             if ($comment->getPost() === $this) {
                 $comment->setPost(null);
+            }
+        }
+
+        return $this;
+    }
+
+    public function getUser(): ?User
+    {
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Like>
+     */
+    public function getLikes(): Collection
+    {
+        return $this->likes;
+    }
+
+    public function addNewLike(Like $like): static
+    {
+        if (!$this->likes->contains($like)) {
+            $this->likes->add($like);
+            $like->setPost($this);
+        }
+
+        return $this;
+    }
+
+    public function removeNewLike(Like $like): static
+    {
+        if ($this->likes->removeElement($like)) {
+            // set the owning side to null (unless already changed)
+            if ($like->getPost() === $this) {
+                $like->setPost(null);
             }
         }
 

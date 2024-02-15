@@ -1,13 +1,13 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Post{% endblock %}
+{% block title %}Modifier le post !{% endblock %}
 
 {% block body %}
-    <h1>Edit Post</h1>
+    <h1 class="title_admin">Modifier le post !</h1>
 
     {{ include('post/_form.html.twig', {'button_label': 'Update'}) }}
 
-    <a href="{{ path('app_post_index') }}">back to list</a>
+    <a class="button_crud" href="{{ path('app_post_index') }}">Retour</a>
 
     {{ include('post/_delete_form.html.twig') }}
 {% endblock %}

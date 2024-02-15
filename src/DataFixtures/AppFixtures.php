@@ -5,6 +5,7 @@ namespace App\DataFixtures;
 use App\Entity\Comment;
 use App\Entity\Post;
 use App\Entity\User;
+use App\Repository\UserRepository;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Factory;
@@ -14,9 +15,11 @@ class AppFixtures extends Fixture
 {
 
     private UserPasswordHasherInterface $passwordHasher;
+    private UserRepository $userRepo;
 
-    public function __construct(UserPasswordHasherInterface $passwordHasher) {
+    public function __construct(UserPasswordHasherInterface $passwordHasher, UserRepository $userRepo) {
         $this->passwordHasher = $passwordHasher;
+        $this->userRepo = $userRepo;
     }
     public function load(ObjectManager $manager): void
     {
@@ -26,7 +29,7 @@ class AppFixtures extends Fixture
             $admin->setUsername("admin");
             $admin->setEmail("admin@admin.com");
             $admin->setPassword($this->passwordHasher->hashPassword($admin, "admin"));
-            $admin->setImg(null);
+            $admin->setImageName(null);
             $admin->setCreatedAt(new \DateTimeImmutable());
             $admin->setRoles(["ROLE_ADMIN"]);
 
@@ -39,7 +42,7 @@ class AppFixtures extends Fixture
             $user->setUsername($faker->userName());
             $user->setEmail($faker->email());
             $user->setPassword($this->passwordHasher->hashPassword($user, $faker->password()));
-            $user->setImg($faker->imageUrl());
+            $user->setImageName($faker->imageUrl());
             $user->setCreatedAt(new \DateTimeImmutable());
             $user->setRoles(["ROLE_USER"]);
 
@@ -53,10 +56,11 @@ class AppFixtures extends Fixture
             $post = new Post();
             $post->setTitle($faker->sentence(3));
             $post->setText($faker->paragraph());
-            $post->setImg("https://picsum.photos/1900/2000?grayscale&image=$i");
+            $post->setImageName("https://picsum.photos/1900/2000?grayscale&image=$i");
             $post->setCategorie($faker->word());
             $post->setLikes(rand(1,1000));
             $post->setCreatedAt(new \DateTimeImmutable());
+            $post->setUser($admin);
 
             $numComments = rand(2, 7);
             for ($j = 0; $j < $numComments; $j++) {

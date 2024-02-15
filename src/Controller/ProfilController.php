@@ -6,11 +6,10 @@ use App\Form\UserType;
 use App\Repository\UserRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\File\Exception\FileException;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
-use Symfony\Component\String\Slugger\SluggerInterface;
+use App\Service\ImgValidatorPerso;
 
 class ProfilController extends AbstractController
 {
@@ -19,7 +18,7 @@ class ProfilController extends AbstractController
         Request $request, 
         UserRepository $userRepository, 
         EntityManagerInterface $entityManager, 
-        SluggerInterface $slugger
+        ImgValidatorPerso $imgValid
     ): Response
     {
         $currentUser = $userRepository->find($this->getUser());
@@ -29,24 +28,10 @@ class ProfilController extends AbstractController
         if ($form->isSubmitted() && $form->isValid()) {
             $imageFile = $form->get('imageFile')->getData();
 
-            if ($imageFile) {
-                $originalFilename = pathinfo($imageFile->getClientOriginalName(), PATHINFO_FILENAME);
+            $newFilename = $imgValid->ImageVerifier($imageFile, $this->getParameter('user_image_directory'));
 
-                $safeFilename = $slugger->slug($originalFilename);
-                $newFilename = $safeFilename.'-'.uniqid().'.'.$imageFile->guessExtension();
-
-                try {
-                    $imageFile->move(
-                        $this->getParameter('user_image_directory'),
-                        $newFilename
-                    );
-                } catch (FileException $e) {
-                    dump($e);
-                }
-
-                $currentUser->setImageName($newFilename);
-            }
-
+            $currentUser->setImageName($newFilename);
+            
             $currentUser->setUsername($form->get('username')->getData());
             $entityManager->persist($currentUser);
             $entityManager->flush();

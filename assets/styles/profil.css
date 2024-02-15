@@ -3,25 +3,29 @@
     justify-content: center;
 }
 
-body {
-    background: whitesmoke;
-    font-family: 'Open Sans', sans-serif;
-}
-
-.container {
-    max-width: 960px;
+.container_avatar {
+    max-width: 460px;
     margin: 30px auto;
-    padding: 20px;
-}
-
-.hello_user {
-    font-size: 20px;
-    text-align: center;
-    margin: 20px 0 20px;
 }
 
 .avatar-upload {
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-preview {
+    display: flex;
+    justify-content: center;
+    width: 192px;
+    height: 192px;
     position: relative;
-    max-width: 205px;
-    margin: 50px auto;
+    overflow: hidden;
+    border-radius: 100%;
+    border: 6px solid #F8F8F8;
+    box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.1);
+}
+
+.imagePreview {
+    position: absolute;
+    width: 190px;
 }

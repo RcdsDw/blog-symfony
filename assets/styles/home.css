@@ -11,12 +11,12 @@
     margin: 2rem;
     border-radius: 1rem;
     background-color: var(--sand-color);
-    transition: all 0.13s ease-in-out;
+    transition: all 0.2s ease-in-out;
   }
 
   .card:hover {
-    transform: scale(1.05);
-    box-shadow: 0px 2px 40px 2px black;
+    transform: scale(1.03);
+    box-shadow: 0px 1px 40px 1px black;
   }
   
   .card a, .card a:focus, .card a:visited {
@@ -24,6 +24,7 @@
   }
   
   .content {
+    overflow: hidden;
     padding: 0.5rem;
   }
   
@@ -44,8 +45,8 @@
   }
   
   .desc {
-    max-height: 155px;
-    overflow: hidden;
+    height: 155px;
+    overflow: auto;
     margin-top: 0.5rem;
     padding: 1rem;
     border-radius: 1rem;
@@ -54,6 +55,7 @@
     font-size: 0.9rem;
     text-wrap: pretty;
     line-height: 1rem;
+    box-shadow: inset 0px 0px 10px 0.5px var(--black-color);
   }
   
   .like {
@@ -81,7 +83,6 @@
     margin-top: 1rem;
     color: #ffffff;
     align-items: center;
-    padding: 4px 8px;
     width: 30px;
     height: 30px;
   }

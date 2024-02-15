@@ -16,15 +16,11 @@ class UserType extends AbstractType
         $builder
             ->add('username', null, ['attr' => [ 
                 'class' => 'newUsername',
-            ]])
+            ],
+            'label' => 'Modifier votre pseudo ?',
+            ])
             ->add('imageFile', FileType::class, [
-                'attr' => [ 
-                    'id' => 'imagePreview',
-                ],
-                'label' => 'image de profil',
-                'label_attr' => [ 
-                    'class' => 'label_imagePreview',
-                ],
+                'label' => 'Modifier votre avatar ?',
                 'mapped' => false,
 
                 'required' => false,
