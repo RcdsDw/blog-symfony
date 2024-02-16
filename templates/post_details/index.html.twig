@@ -2,25 +2,34 @@
 
 {% block title %}Details{% endblock %}
 {% block javascripts %}
-{% block importmap %}{{ importmap('app') }}{% endblock %}
+    {{ parent() }}
     <script>
-        function handleClick(element) {
-            element.style.transition = "width 0.1s, height 0.1s";
-            element.style.width = "0";
-            element.style.height = "0";
+        function handleClick(id) {
+            fetch(`{{ path('app_likes', {'id': post.id})  }}`, {
+                method: 'POST',
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById(`${id}`).innerHTML = data
+                console.log(data);
+            })
+            .catch(error => {
+                console.error('Erreur lors de l\'envoi des données:', error);
+            });
+        }
+            {# e.style.transition = "width 0.1s, height 0.1s";
+            e.style.width = "0";
+            e.style.height = "0";
     
             setTimeout(function () {
-                if (element.classList.contains('liked')) {
-                    element.src = "{{ asset('/img/heart.png') }}";
-                    element.classList.remove('liked')
+                if (e.src == "{{ asset('/img/heart.png') }}";) {
+                    e.src = "{{ asset('/img/heart_full.png') }}";
                 } else {
-                    element.src = "{{ asset('/img/heart_full.png') }}";
-                    element.classList.add('liked')
+                    e.src = "{{ asset('/img/heart.png') }}";
                 }
-                element.style.width = "40px";
-                element.style.height = "40px";
-            }, 100);
-        }
+                e.style.width = "40px";
+                e.style.height = "40px";
+            }, 100); #}
     </script>
 {% endblock %}
 
@@ -39,8 +48,18 @@
 
                 <div class="actions_details">
                     <div class="like_details">
-                        <img class="img_like_details" onclick=handleClick(this) src="{{ asset('/img/heart.png') }}" alt="">
-                        {# <p class="nbr_likes_details">{{post.likes}}</p> #}
+                        {% if post.likes | length > 0 %}
+                            {% for like in post.likes %}
+                                {% if like.user.id == currentUserId %}
+                                    <img class="img_like_details" onclick=handleClick({{post.id}}) src="{{ asset('/img/heart_full.png') }}" alt=""/>
+                                {% else %}
+                                    <img class="img_like_details" onclick=handleClick({{post.id}}) src="{{ asset('/img/heart.png') }}" alt=""/>              
+                                {% endif %}
+                            {% endfor %}
+                        {% else %}
+                            <img class="img_like_details" onclick=handleClick({{post.id}}) src="{{ asset('/img/heart.png') }}" alt=""/>          
+                        {% endif %}
+                        <p id="{{post.id}}" class="nbr_likes_details">{{post.TotalLikes}}</p>
                     </div>
                 </div>
             </div>
@@ -54,7 +73,10 @@
                 <div class="comment_card">
                     <div class="text_comment">{{ comment.text }}</div>
                     <div class="date_comment">{{ comment.createdAt ? comment.createdAt|date('d-m-Y H:i:s') : '' }}</div>
-                    <div class="author_comment">{{ comment.user.getUsername() }}</div>
+                    <div class="author_wrapper_details">
+                        <div class="author_name_details">{{ comment.user.username() }}</div>
+                        <img class="author_img_details" src="{{ asset('img/users/' ~ comment.user.imageName )}}" alt="">
+                    </div>
                 </div>
             {% endfor %}
         </div>

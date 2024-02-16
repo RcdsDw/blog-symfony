@@ -15,6 +15,8 @@ class PostDetailsController extends AbstractController
     #[Route('/details/{id}', name: 'app_post_details')]
     public function index(Post $post): Response
     {
+        $currentUser = $this->getUser();
+
         $sortedComments = $post->getComments()->toArray();
         usort($sortedComments, function ($a, $b) {
             return $b->getCreatedAt() <=> $a->getCreatedAt();
@@ -23,6 +25,7 @@ class PostDetailsController extends AbstractController
         return $this->render('post_details/index.html.twig', [
             'post' => $post,
             'comments' => $sortedComments,
+            'currentUserId' => $currentUser->getId()
         ]);
     }
 

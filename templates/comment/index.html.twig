@@ -26,7 +26,8 @@
                 <td class="td_text td_index">{{ comment.text }}</td>
                 <td class="td_index">{{ comment.createdAt ? comment.createdAt|date('Y-m-d H:i:s') : '' }}</td>
                 <td class="td_index">{{ comment.updatedAt ? comment.updatedAt|date('Y-m-d H:i:s') : '' }}</td>
-                <td class="td_index">{{ comment.likes }}</td>
+                {# TODO
+                {# <td class="td_index">{{ comment.likes }}</td> #}
                 <td class="td_index">
                     <a class="button_admin" href="{{ path('app_comment_show', {'id': comment.id}) }}">Détails</a>
                     <a class="button_admin" href="{{ path('app_comment_edit', {'id': comment.id}) }}">Editer</a>

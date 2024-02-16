@@ -25,8 +25,7 @@ class HomeController extends AbstractController
 
         return $this->render('main/home.html.twig', [
             'posts' => $sortedPosts,
-            'author_name' => $currentUser->getUsername(),
-            'author_img' => $currentUser->getImageName(),
+            'currentUserId' => $currentUser->getId(),
         ]);
     }
 }

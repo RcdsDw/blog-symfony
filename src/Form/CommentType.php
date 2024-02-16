@@ -18,7 +18,7 @@ class CommentType extends AbstractType
             ->add('text', null, ['attr' => ['class' => 'form-control']])
             ->add('createdAt', null, ['attr' => ['class' => 'form-control']])
             ->add('updatedAt', null, ['attr' => ['class' => 'form-control']])
-            ->add('likes', null, ['attr' => ['class' => 'form-control']])
+            // ->add('likes', null, ['attr' => ['class' => 'form-control']])
             ->add('post', EntityType::class, [
                 'class' => Post::class,
                 'choice_label' => 'id',

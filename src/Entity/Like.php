@@ -10,38 +10,46 @@ use Doctrine\ORM\Mapping as ORM;
 class Like
 {
     #[ORM\Id]
-    #[ORM\ManyToOne(inversedBy: 'likes')]
-    #[ORM\JoinColumn(nullable: false)]
-    private ?User $User = null;
+    #[ORM\GeneratedValue]
+    #[ORM\Column]
+    private ?int $id = null;
 
-    #[ORM\Id]
     #[ORM\ManyToOne(inversedBy: 'likes')]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Post $Post = null;
+    private ?User $user = null;
+
+    #[ORM\ManyToOne(inversedBy: 'likes')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Post $post = null;
 
     #[ORM\Column]
     private ?int $timestamp = null;
 
-    public function getUser(): ?User
+    public function getId(): ?int
     {
-        return $this->User;
+        return $this->id;
     }
 
-    public function setUser(?User $User): static
+    public function getUser(): ?User
     {
-        $this->User = $User;
+        return $this->user;
+    }
+
+    public function setUser(?User $user): static
+    {
+        $this->user = $user;
 
         return $this;
     }
 
     public function getPost(): ?Post
     {
-        return $this->Post;
+        return $this->post;
     }
 
-    public function setPost(?Post $Post): static
+    public function setPost(?Post $post): static
     {
-        $this->Post = $Post;
+        $this->post = $post;
 
         return $this;
     }

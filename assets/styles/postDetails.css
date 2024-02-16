@@ -44,11 +44,14 @@
 }
 
 .like_details {
+    position: relative;
     display: flex;
     align-items: center;
 }
 
 .img_like_details {
+    position: absolute;
+    left:-20px;
     display: flex;
     margin-top: 1rem;
     color: #ffffff;
@@ -58,6 +61,9 @@
   }
 
 .nbr_likes_details {
+    position: absolute;
+    left: 30px;
+    top: -10px;
     font-size: 1.5rem;
 }
 
@@ -78,7 +84,7 @@
     background-color: var(--blue-color);
     border: 1px solid white;
     color: white;
-    font-size: 1.5rem;
+    font-size: 1.2rem;
 }
 
 .date_comment{
@@ -89,11 +95,22 @@
     font-size: 1rem;
 }
 
-.author_comment {
+.author_wrapper_details {
     display: flex;
+    align-items: center;
     justify-content: flex-end;
+}
+
+.author_name_details {
     color: var(--orange-color);
     font-size: 1rem;
+}
+
+.author_img_details {
+    width: 25px;
+    border: 1px solid var(--black-color);
+    border-radius: 100%;
+    margin-left: 5px;
 }
 
 /* ajout de commentaire */

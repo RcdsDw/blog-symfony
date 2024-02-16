@@ -31,7 +31,7 @@
                 <td class="td_index">{{ post.imageName }}</td>
                 <td class="td_index">{{ post.createdAt ? post.createdAt|date('d-m-Y H:i:s') : '' }}</td>
                 <td class="td_index">{{ post.updatedAt ? post.updatedAt|date('d-m-Y H:i:s') : '' }}</td>
-                <td class="td_index">{{ post.likes }}</td>
+                <td class="td_index">{{ post.TotalLikes }}</td>
                 <td class="td_index">{{ post.categorie }}</td>
                 <td class="buttons_admin_wrapper">
                     <a class="button_admin" href="{{ path('app_post_show', {'id': post.id}) }}">Détails</a>
